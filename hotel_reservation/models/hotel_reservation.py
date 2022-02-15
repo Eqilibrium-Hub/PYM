@@ -43,7 +43,6 @@ class HotelReservation(models.Model):
         "Guest Name",
         readonly=True,
         index=True,
-        required=True,
         states={"draft": [("readonly", False)]},
     )
     pricelist_id = fields.Many2one(
@@ -107,7 +106,8 @@ class HotelReservation(models.Model):
         string="Reservation Line",
         help="Hotel room reservation details.",
         readonly=True,
-        states={"draft": [("readonly", False)]},
+        states={"draft": [("readonly", False)],
+                "confirm": [("readonly", False)]},
     )
     state = fields.Selection(
         [

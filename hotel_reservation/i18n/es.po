@@ -441,7 +441,7 @@ msgstr "Cancelar"
 #: model_terms:ir.ui.view,arch_db:hotel_reservation.view_hotel_reservation_form
 #, fuzzy
 msgid "Cancel Reservation"
-msgstr "Todas las reservas"
+msgstr "Cancelar Reservación"
 
 #. module: hotel_reservation
 #: model:ir.model.fields,field_description:hotel_reservation.field_quick_room_reservation__check_in
@@ -1017,7 +1017,7 @@ msgstr "Número de reserva"
 #: model_terms:ir.ui.view,arch_db:hotel_reservation.room_reservation_summary_form_view
 #, fuzzy
 msgid "Reservation Summary"
-msgstr "Reserva"
+msgstr "Resumen Reservas"
 
 #. module: hotel_reservation
 #: model:ir.actions.act_window,name:hotel_reservation.action_hotel_reservation_tree_all
@@ -1025,7 +1025,7 @@ msgstr "Reserva"
 #: model:ir.ui.menu,name:hotel_reservation.menu_hotel_reservation
 #, fuzzy
 msgid "Reservations"
-msgstr "Reserva"
+msgstr "Reservaciones"
 
 #. module: hotel_reservation
 #: model:ir.model.fields,field_description:hotel_reservation.field_hotel_reservation_line__reserve
@@ -1134,7 +1134,7 @@ msgstr "Tipo de habitación"
 #: model:ir.model,name:hotel_reservation.model_room_reservation_summary
 #, fuzzy
 msgid "Room reservation summary"
-msgstr " Reserva"
+msgstr "Resumen de Reserva"
 
 #. module: hotel_reservation
 #: model_terms:ir.ui.view,arch_db:hotel_reservation.view_hotel_reservation_form
