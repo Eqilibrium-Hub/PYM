@@ -50,21 +50,21 @@ class HotelReservation(models.Model):
         "Scheme",
         required=True,
         readonly=True,
-        states={"draft": [("readonly", False)]},
+        states={"draft": [("readonly", False)],"confirm": [("readonly", False)]},
         help="Pricelist for current reservation.",
     )
     partner_invoice_id = fields.Many2one(
         "res.partner",
         "Invoice Address",
         readonly=True,
-        states={"draft": [("readonly", False)]},
+        states={"draft": [("readonly", False)],"confirm": [("readonly", False)]},
         help="Invoice address for " "current reservation.",
     )
     partner_order_id = fields.Many2one(
         "res.partner",
         "Ordering Contact",
         readonly=True,
-        states={"draft": [("readonly", False)]},
+        states={"draft": [("readonly", False)],"confirm": [("readonly", False)]},
         help="The name and address of the "
         "contact that requested the order "
         "or quotation.",
