@@ -73,7 +73,7 @@ class HotelReservation(models.Model):
         "res.partner",
         "Delivery Address",
         readonly=True,
-        states={"draft": [("readonly", False)]},
+        states={"draft": [("readonly", False)],"confirm": [("readonly", False)]},
         help="Delivery address" "for current reservation. ",
     )
     checkin = fields.Datetime(
