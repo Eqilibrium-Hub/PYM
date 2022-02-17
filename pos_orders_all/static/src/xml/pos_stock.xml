@@ -22,9 +22,7 @@
 					<t t-if="env.pos.config.pos_display_stock">
 						<t t-if="env.pos.config.pos_stock_type == 'onhand'">
 							<span class="price-tag" id="stockqty" style="right: 90px;">
-								<t t-if="env.pos.config.show_stock_location != 'specific'">
-									<t t-esc="props.product.bi_on_hand"/>
-								</t>
+								<t t-esc="props.product.bi_on_hand"/>
 							</span>
 						</t>
 						<t t-if="env.pos.config.pos_stock_type == 'incoming'">

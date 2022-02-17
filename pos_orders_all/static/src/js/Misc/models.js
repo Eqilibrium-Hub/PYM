@@ -187,12 +187,10 @@ odoo.define('pos_orders_all.models', function(require) {
 
 		get_base_price:    function(){
 			var rounding = this.pos.currency.rounding;
-			if (this.pos.config.discount_type == 'percentage')
-			{
+			if (this.pos.config.discount_type == 'percentage'){
 				return round_pr(this.get_unit_price() * this.get_quantity() * (1 - this.get_discount()/100), rounding);
 			}
-			if (this.pos.config.discount_type == 'fixed')
-			{
+			if (this.pos.config.discount_type == 'fixed'){
 				return round_pr((this.get_unit_price()- this.get_discount())* this.get_quantity(), rounding);	
 			}
 		},

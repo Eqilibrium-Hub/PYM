@@ -25,6 +25,11 @@ odoo.define('pos_orders_all.ProductsWidget', function(require) {
 				super._switchCategory(event);
 			}
 
+			_updateSearch(event) {
+				this.env.pos.set("is_sync",true);
+				this.state.searchWord = event.detail;
+			}
+
 			get is_sync() {
 				return this.env.pos.get('is_sync');
 			}
