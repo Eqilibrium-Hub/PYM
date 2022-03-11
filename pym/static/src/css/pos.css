@@ -1,0 +1,25 @@
+.room_line {
+    padding: 5px;
+    color: #714B67;
+    font-weight: bold;
+    border: #714B67 1px solid;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.room_line:hover {
+    background: #714B67;
+    color: white;
+}
+
+.room_line_active {
+    background: #714B67;
+    color: white;
+}
+
+.odoo-theme-close {
+    background: white !important;
+    color: #875a7b !important;
+    font-size: 14px !important;
+    border-color: #875a7b;
+}
