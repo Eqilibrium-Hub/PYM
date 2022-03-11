@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hotel_room_partner_room_view_tree" model="ir.ui.view">
+            <field name="name">hotel.room.partner.room.view.tree</field>
+            <field name="model">hotel.folio.line</field>
+            <field name="arch" type="xml">
+                <tree string="Huéspedes por habitaciones">
+                    <field name="checkin_date"/>
+                    <field name="checkout_date"/>
+                    <field name="product_id"/>
+                    <field name="partner_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_hotel_reservation_partner_room" model="ir.actions.act_window">
+            <field name="name">Habitaciones x Huesped</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.folio.line</field>
+            <field name="view_id" ref="hotel_room_partner_room_view_tree" />
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new ModelTitle.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Habitaciones x Huesped"
+                  id="menu_hotel_reservation_partner_room"
+                  parent="hotel_reservation.menu_hotel_reservation"
+                  action="action_hotel_reservation_partner_room"/>
+
+    </data>
+</odoo>

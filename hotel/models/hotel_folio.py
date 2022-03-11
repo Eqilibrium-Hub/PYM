@@ -1,4 +1,4 @@
-# See LICENSE file for full copyright and licensing details.
+  # See LICENSE file for full copyright and licensing details.
 import time
 from datetime import timedelta
 
@@ -316,6 +316,9 @@ class HotelFolioLine(models.Model):
     is_reserved = fields.Boolean(
         "Is Reserved", help="True when folio line created from Reservation"
     )
+
+    partner_id = fields.Many2one("res.partner", "Huesped", ondelete="cascade")
+
 
     @api.model
     def create(self, vals):

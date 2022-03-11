@@ -686,4 +686,6 @@ class HotelRestaurantOrderList(models.Model):
     menucard_id = fields.Many2one("hotel.menucard", "Item Name", required=True)
     item_qty = fields.Integer("Qty", required=True, default=1)
     item_rate = fields.Float("Rate")
+
+    hotel_room_id = fields.Many2one("hotel.room", string="Habitaciones", required=True)
     price_subtotal = fields.Float(compute="_compute_price_subtotal", string="Subtotal")

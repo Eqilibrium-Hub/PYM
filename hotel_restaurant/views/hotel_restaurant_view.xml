@@ -402,6 +402,7 @@
                             <tree string="Order List" editable="top">
                                 <field name="menucard_id" />
                                 <field name="item_qty" />
+                                <field name="hotel_room_id" />
                                 <field name="item_rate" />
                                 <field name="price_subtotal" />
                             </tree>
