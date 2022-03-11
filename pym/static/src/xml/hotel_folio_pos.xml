@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pym_pos_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="CreateFolioLine" owl="1">
+		<span class="control-button create_folio_line odoo-theme-color">
+			<i class="fa fa-shopping-cart"></i>
+            <span>Asign to Room</span>
+		</span>
+    </t>
+    <t t-name="RoomsDialogShow" owl="1">
+		<div role="dialog" class="modal-dialog">
+			<Draggable>
+				<div class="popup popup-textinput">
+					<header class="title drag-handle">
+						Bedrooms
+					</header>
+                    <main class="body traceback"
+                          style="font-family: 'Lato-Reg';text-align: center;color: #875a7b;font-size: 1.20rem;">
+						<div class="room_container" t-foreach="props.data" t-as="room">
+							<div class="room_line" t-att-id="'line_' + room['id']"
+                                 t-on-click="asign_room_service(room)">
+								<strong t-esc="room['name']"/>
+							</div>
+						</div>
+					</main>
+                    <footer class="footer">
+						<div class="button cancel odoo-theme-close" t-on-click="cancel">
+							Close
+						</div>
+                        <div class="button confirm odoo-theme-button" t-on-click="create_service_room">
+							Create
+						</div>
+					</footer>
+				</div>
+			</Draggable>
+		</div>
+	</t>
+</templates>
