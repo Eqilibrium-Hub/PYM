@@ -11,8 +11,6 @@ class HotelServiceLine(models.Model):
 
     room_id = fields.Many2one('product.product', 'Room')
 
-    has_invoice = fields.Boolean('Has Invoice', default=False)
-
     @api.model
     def create_service_line_ui(self, list_products):
         service_lines = self.create(list_products)

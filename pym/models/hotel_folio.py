@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, _
+from odoo.exceptions import UserError
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -8,17 +9,24 @@ _logger = logging.getLogger(__name__)
 class HotelFolio(models.Model):
     _inherit = 'hotel.folio'
 
+    def action_confirm(self):
+        room_no_partners = self.room_line_ids.filtered(lambda rl: not rl.partner_id.id)
+        if room_no_partners.ids:
+            names = room_no_partners.mapped('product_id.name')
+            raise UserError(_('No Guest Found in Room %s', ', '.join(names)))
+        super(HotelFolio, self).action_confirm()
+
     def create_hotel_folio_wizard(self):
         list_wizard = []
         dict_services = {}
-        list_partners = []
         WIZARD_ENV = self.env['hotel.folio.invoice.wizard']
         WIZARD_LINES_ENV = self.env['hotel.folio.invoice.line.wizard']
-        for service in self.service_line_ids:
+        for service in self.service_line_ids.filtered(lambda s: s.invoice_status not in ['invoiced', 'no']):
             if not service.room_id in dict_services:
                 dict_services[service.room_id] = []
             dict_services.get(service.room_id, []).append(service)
-        wiz = WIZARD_ENV.create({'name': self.name, 'folio_id': self.id, 'currency_id': self.currency_id.id})
+        wiz = WIZARD_ENV.create({'name': self.name, 'folio_id': self.id, 'currency_id': self.currency_id.id,
+                                 'partner_id': self.partner_id.id})
         for room, services in dict_services.items():
             amount_total = 0.00
             for service in services:
@@ -33,7 +41,6 @@ class HotelFolio(models.Model):
             rooms = self.room_line_ids.filtered(lambda r: r.product_id.id == room.id)
             if rooms.ids:
                 if rooms[0].partner_id.id:
-                    list_partners.append(rooms[0].partner_id.id)
                     vals_wizards['partner_id'] = rooms[0].partner_id.id
             list_wizard.append(vals_wizards)
         WIZARD_LINES_ENV.create(list_wizard)

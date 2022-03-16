@@ -22,7 +22,7 @@ class HotelFolioInvoiceWizard(models.TransientModel):
     @api.onchange('room_wizard_lines')
     def onchange_room_wizard_lines(self):
         if self.room_wizard_lines.ids:
-            partners = []
+            partners = [self.partner_id.id]
             for line in self.room_wizard_lines:
                 partners.append(line.partner_id.id)
             self.update({'partner_filter': [(6, 0, partners)]})
@@ -56,6 +56,8 @@ class HotelFolioInvoiceWizard(models.TransientModel):
         for hotel in self:
             rooms = hotel.room_wizard_lines.mapped('room_id')
             hotel_services_line = hotel.folio_id.service_line_ids.filtered(lambda li: li.room_id.id in rooms.ids)
+            _logger.info("hotel_services_line")
+            _logger.info(hotel_services_line)
             hotel.service_lines = [(6, 0, hotel_services_line.ids)]
 
     def create_invoices(self):
@@ -66,8 +68,6 @@ class HotelFolioInvoiceWizard(models.TransientModel):
         for line in self.service_lines:
             invoice_lines.append((0, 0, line.service_line_id._prepare_invoice_line()))
         invoice_vals['invoice_line_ids'] = invoice_lines
-        _logger.info("invoice_vals")
-        _logger.info(invoice_vals)
         moves = self.env['account.move'].sudo().with_context(default_move_type='out_invoice').create(invoice_vals)
 
 

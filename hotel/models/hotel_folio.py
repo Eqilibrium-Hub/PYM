@@ -317,7 +317,7 @@ class HotelFolioLine(models.Model):
         "Is Reserved", help="True when folio line created from Reservation"
     )
 
-    partner_id = fields.Many2one("res.partner", "Huesped", ondelete="cascade")
+    partner_id = fields.Many2one("res.partner", "Guest", ondelete="cascade")
 
 
     @api.model
