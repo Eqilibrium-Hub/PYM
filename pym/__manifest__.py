@@ -13,8 +13,10 @@
         "hotel_reservation"
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/assets.xml",
-        "views/view_hotel_folio_form.xml",
+        "wizard/hotel_folio_invoice.xml",
+        "views/view_hotel_folio_form.xml"
     ],
     "images": [
 

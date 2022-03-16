@@ -16,7 +16,6 @@ except (ImportError, IOError) as err:
 
 
 class HotelRoom(models.Model):
-
     _inherit = "hotel.room"
     _description = "Hotel Room"
 
@@ -88,7 +87,6 @@ class HotelRoom(models.Model):
 
 
 class RoomReservationSummary(models.Model):
-
     _name = "room.reservation.summary"
     _description = "Room reservation summary"
 
@@ -140,8 +138,8 @@ class RoomReservationSummary(models.Model):
                 timezone = pytz.timezone("UTC")
             d_frm_obj = (
                 (self.date_from)
-                .replace(tzinfo=pytz.timezone("UTC"))
-                .astimezone(timezone)
+                    .replace(tzinfo=pytz.timezone("UTC"))
+                    .astimezone(timezone)
             )
             d_to_obj = (
                 (self.date_to).replace(tzinfo=pytz.timezone("UTC")).astimezone(timezone)
@@ -150,11 +148,11 @@ class RoomReservationSummary(models.Model):
             while temp_date <= d_to_obj:
                 val = ""
                 val = (
-                    str(temp_date.strftime("%a"))
-                    + " "
-                    + str(temp_date.strftime("%b"))
-                    + " "
-                    + str(temp_date.strftime("%d"))
+                        str(temp_date.strftime("%a"))
+                        + " "
+                        + str(temp_date.strftime("%b"))
+                        + " "
+                        + str(temp_date.strftime("%d"))
                 )
                 summary_header_list.append(val)
                 date_range_list.append(temp_date.strftime(dt))
@@ -173,6 +171,7 @@ class RoomReservationSummary(models.Model):
                                 "state": "Free",
                                 "date": chk_date,
                                 "room_id": room.id,
+                                "1": True
                             }
                         )
                 else:
@@ -192,12 +191,14 @@ class RoomReservationSummary(models.Model):
                                 ("state", "=", "assigned"),
                             ]
                         )
+
                         if not reservline_ids:
                             sdt = dt
                             chk_date = datetime.strptime(chk_date, sdt)
                             chk_date = datetime.strftime(
                                 chk_date - timedelta(days=1), sdt
                             )
+
                             reservline_ids = reservation_line_obj.search(
                                 [
                                     ("id", "in", reserline_ids),
@@ -222,6 +223,7 @@ class RoomReservationSummary(models.Model):
                                         st = rlist.get("state") == "Reserved"
                                         if ci and co and rm and st:
                                             count += 1
+
                                     if count - dur.days == 0:
                                         c_id1 = user_obj.browse(self._uid)
                                         c_id = c_id1.company_id
@@ -235,6 +237,8 @@ class RoomReservationSummary(models.Model):
                                         if con_add > 0:
                                             amin = abs(con_add * 60)
                                         hr_dur = abs(dur.seconds / 60)
+                                        _logger.info("hr_dur")
+                                        _logger.info(hr_dur)
                                         if amin > 0:
                                             # When additional minutes is greater
                                             # than zero then check duration with
@@ -249,7 +253,8 @@ class RoomReservationSummary(models.Model):
                                             if hr_dur > 0:
                                                 reservline_ids = True
                                             else:
-                                                reservline_ids = False
+                                                # TODO CHECK
+                                                reservline_ids = True
                                     else:
                                         reservline_ids = False
                         fol_room_line_ids = room.room_line_ids.ids
@@ -262,6 +267,7 @@ class RoomReservationSummary(models.Model):
                                 ("status", "not in", chk_state),
                             ]
                         )
+
                         if reservline_ids or folio_resrv_ids:
                             room_list_stats.append(
                                 {
@@ -271,6 +277,7 @@ class RoomReservationSummary(models.Model):
                                     "is_draft": "No",
                                     "data_model": "",
                                     "data_id": 0,
+                                    "default_reserve": True
                                 }
                             )
                         else:
@@ -279,9 +286,14 @@ class RoomReservationSummary(models.Model):
                                     "state": "Free",
                                     "date": chk_date,
                                     "room_id": room.id,
+                                    "2": True
                                 }
                             )
 
+                if room.id == 95:
+                    import json
+                    _logger.info("room_list_stats")
+                    _logger.info(json.dumps(room_list_stats))
                 room_detail.update({"value": room_list_stats})
                 all_room_detail.append(room_detail)
             main_header.append({"header": summary_header_list})

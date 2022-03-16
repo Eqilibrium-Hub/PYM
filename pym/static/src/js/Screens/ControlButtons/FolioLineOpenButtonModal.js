@@ -26,7 +26,7 @@ odoo.define('pym.FolioLineOpenButtonModal', function (require) {
                 });
             }
             self.rpc({
-                model: 'hotel.reservation',
+                model: 'hotel.folio.line',
                 method: 'get_rooms_client',
                 args: [partner_id],
             }).then(function (output) {

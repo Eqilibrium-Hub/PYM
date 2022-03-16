@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hotel_folio_invoice_wizard,hotel.folio.invoice.wizard,pym.model_hotel_folio_invoice_wizard,base.group_user,1,1,1,1
+access_hotel_folio_invoice_line_wizard,hotel.folio.invoice.line.wizard,pym.model_hotel_folio_invoice_line_wizard,base.group_user,1,1,1,1
