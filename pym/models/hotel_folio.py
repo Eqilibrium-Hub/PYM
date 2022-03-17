@@ -21,12 +21,28 @@ class HotelFolio(models.Model):
         dict_services = {}
         WIZARD_ENV = self.env['hotel.folio.invoice.wizard']
         WIZARD_LINES_ENV = self.env['hotel.folio.invoice.line.wizard']
+        wiz = WIZARD_ENV.create({'name': self.name, 'folio_id': self.id, 'currency_id': self.currency_id.id,
+                                 'partner_id': self.partner_id.id})
+        # Add Rooms
+        rooms = self.service_line_ids.mapped('room_id.id')
+        for room_service in self.room_line_ids.filtered(
+                lambda s: s.invoice_status not in ['invoiced', 'no'] and s.product_id.id not in rooms):
+            vals_wizards = {
+                'name': room_service.name,
+                'currency_id': self.currency_id.id,
+                'amount_total': room_service.price_subtotal,
+                'wiz': wiz.id,
+                'room_id': room_service.product_id.id,
+                'partner_id': room_service.partner_id.id
+            }
+            list_wizard.append(vals_wizards)
+
+        # Add services
         for service in self.service_line_ids.filtered(lambda s: s.invoice_status not in ['invoiced', 'no']):
             if not service.room_id in dict_services:
                 dict_services[service.room_id] = []
             dict_services.get(service.room_id, []).append(service)
-        wiz = WIZARD_ENV.create({'name': self.name, 'folio_id': self.id, 'currency_id': self.currency_id.id,
-                                 'partner_id': self.partner_id.id})
+
         for room, services in dict_services.items():
             amount_total = 0.00
             for service in services:
@@ -43,6 +59,7 @@ class HotelFolio(models.Model):
                 if rooms[0].partner_id.id:
                     vals_wizards['partner_id'] = rooms[0].partner_id.id
             list_wizard.append(vals_wizards)
+
         WIZARD_LINES_ENV.create(list_wizard)
         return wiz
 

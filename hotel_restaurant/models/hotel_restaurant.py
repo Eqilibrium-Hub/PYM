@@ -5,7 +5,6 @@ from odoo.exceptions import ValidationError
 
 
 class HotelRestaurantTables(models.Model):
-
     _name = "hotel.restaurant.tables"
     _description = "Includes Hotel Restaurant Table"
 
@@ -14,7 +13,6 @@ class HotelRestaurantTables(models.Model):
 
 
 class HotelRestaurantReservation(models.Model):
-
     _name = "hotel.restaurant.reservation"
     _description = "Includes Hotel Restaurant Reservation"
     _rec_name = "reservation_id"
@@ -211,7 +209,6 @@ class HotelRestaurantReservation(models.Model):
 
 
 class HotelRestaurantKitchenOrderTickets(models.Model):
-
     _name = "hotel.restaurant.kitchen.order.tickets"
     _description = "Includes Hotel Restaurant Order"
     _rec_name = "order_number"
@@ -238,7 +235,6 @@ class HotelRestaurantKitchenOrderTickets(models.Model):
 
 
 class HotelRestaurantOrder(models.Model):
-
     _name = "hotel.restaurant.order"
     _description = "Includes Hotel Restaurant Order"
     _rec_name = "order_no"
@@ -257,7 +253,7 @@ class HotelRestaurantOrder(models.Model):
             sale.amount_total = 0.0
             if sale.amount_subtotal:
                 sale.amount_total = (
-                    sale.amount_subtotal + (sale.amount_subtotal * sale.tax) / 100
+                        sale.amount_subtotal + (sale.amount_subtotal * sale.tax) / 100
                 )
 
     def done_cancel(self):
@@ -466,7 +462,6 @@ class HotelRestaurantOrder(models.Model):
 
 
 class HotelReservationOrder(models.Model):
-
     _name = "hotel.reservation.order"
     _description = "Reservation Order"
     _rec_name = "order_number"
@@ -483,7 +478,7 @@ class HotelReservationOrder(models.Model):
                 line.price_subtotal for line in sale.order_list_ids
             )
             sale.amount_total = (
-                sale.amount_subtotal + (sale.amount_subtotal * sale.tax) / 100
+                    sale.amount_subtotal + (sale.amount_subtotal * sale.tax) / 100
             )
 
     def reservation_generate_kot(self):
@@ -589,6 +584,7 @@ class HotelReservationOrder(models.Model):
                         {
                             "folio_id": res_order.folio_id.id,
                             "service_line_id": sol_rec.id,
+                            "room_id": order.hotel_room_id.product_id.id
                         }
                     )
                     res_order.folio_id.write(
@@ -653,7 +649,6 @@ class HotelReservationOrder(models.Model):
 
 
 class HotelRestaurantOrderList(models.Model):
-
     _name = "hotel.restaurant.order.list"
     _description = "Includes Hotel Restaurant Order"
 

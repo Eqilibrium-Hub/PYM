@@ -22,7 +22,8 @@ class HotelFolioInvoiceWizard(models.TransientModel):
     @api.onchange('room_wizard_lines')
     def onchange_room_wizard_lines(self):
         if self.room_wizard_lines.ids:
-            partners = [self.partner_id.id]
+            partners = []
+            #self.folio_id.partner_id.id
             for line in self.room_wizard_lines:
                 partners.append(line.partner_id.id)
             self.update({'partner_filter': [(6, 0, partners)]})

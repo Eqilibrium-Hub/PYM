@@ -14,6 +14,9 @@
                         </button>
                     </div>
                 </xpath>
+                <xpath expr="//field[@name='room_line_ids']/tree/field[@name='product_id']" position="after">
+                    <field name="invoice_status" readonly="True"/>
+                </xpath>
                 <xpath expr="//field[@name='service_line_ids']/tree/field[@name='product_id']" position="after">
                     <field name="room_id"/>
                     <field name="invoice_status" readonly="True"/>
