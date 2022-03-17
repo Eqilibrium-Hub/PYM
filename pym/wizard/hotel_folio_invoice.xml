@@ -19,10 +19,11 @@
                     </group>
                 </group>
                 <group>
-                    <field name="service_lines" nolabel='1' options="{'no_open': '1'}">
-                        <tree string="Room Services" editable="0" create="0" delete="0">
+                    <field name="services_line_ids" nolabel='1' options="{'no_open': '1'}">
+                        <tree string="Room Services" editable="0" create="0" delete="0"
+                              decoration-success="is_room == True">
                             <field name="product_id"/>
-                            <field name="room_id"/>
+                            <field name="is_room" invisible="1"/>
                             <field name="product_uom_qty"/>
                             <field name="price_unit" widget="monetary"/>
                             <field name="tax_id" widget="many2many_tags"/>
