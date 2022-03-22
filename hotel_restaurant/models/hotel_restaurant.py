@@ -564,7 +564,7 @@ class HotelReservationOrder(models.Model):
         This method is used to change the state
         to done of the hotel reservation order
         ----------------------------------------
-        @param self: object pointer
+        @param self: object pointer: hotel_room_id
         """
         hsl_obj = self.env["hotel.service.line"]
         so_line_obj = self.env["sale.order.line"]
